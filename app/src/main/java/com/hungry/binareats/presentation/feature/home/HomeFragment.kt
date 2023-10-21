@@ -14,6 +14,7 @@ import com.hungry.binareats.data.repository.MenuRepository
 import com.hungry.binareats.data.repository.MenuRepositoryImpl
 import com.hungry.binareats.databinding.FragmentHomeBinding
 import com.hungry.binareats.model.Menu
+import com.hungry.binareats.presentation.feature.detailmenu.DetailMenuActivity
 import com.hungry.binareats.presentation.feature.home.adapter.subadapter.AdapterLayoutMode
 import com.hungry.binareats.presentation.feature.home.adapter.subadapter.CategoryListAdapter
 import com.hungry.binareats.presentation.feature.home.adapter.subadapter.MenuListAdapter
@@ -34,10 +35,14 @@ class HomeFragment : Fragment() {
         MenuListAdapter(
             layoutMode = AdapterLayoutMode.GRID,
             itemClick = {
+                navigateToDetailMenu(it)
             }
         )
     }
 
+    private fun navigateToDetailMenu(it: Menu) {
+        DetailMenuActivity.startActivity(requireContext(),it)
+    }
 
     private val viewModel : HomeViewModel by viewModels {
         val service = BinarEatsApiService.invoke()
