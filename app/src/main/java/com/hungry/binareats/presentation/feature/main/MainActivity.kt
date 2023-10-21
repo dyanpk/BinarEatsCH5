@@ -1,10 +1,11 @@
-package com.hungry.binareats
+package com.hungry.binareats.presentation.feature.main
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.hungry.binareats.R
 import com.hungry.binareats.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

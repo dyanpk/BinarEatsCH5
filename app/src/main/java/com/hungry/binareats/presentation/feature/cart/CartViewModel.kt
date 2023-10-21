@@ -1,13 +1,30 @@
 package com.hungry.binareats.presentation.feature.cart
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.hungry.binareats.data.repository.CartRepository
+import com.hungry.binareats.model.Cart
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class CartViewModel : ViewModel() {
+class CartViewModel(
+    private val repo: CartRepository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is cart Fragment"
+    val cartList = repo.getUserCartData().asLiveData(Dispatchers.IO)
+
+    fun decreaseCart(item: Cart) {
+        viewModelScope.launch { repo.decreaseCart(item).collect() }
     }
-    val text: LiveData<String> = _text
+    fun increaseCart(item: Cart) {
+        viewModelScope.launch { repo.increaseCart(item).collect() }
+    }
+    fun removeCart(item: Cart) {
+        viewModelScope.launch { repo.deleteCart(item).collect() }
+    }
+    fun setCartNotes(item: Cart) {
+        viewModelScope.launch { repo.setCartNotes(item).collect() }
+    }
 }

@@ -1,8 +1,8 @@
 package com.hungry.binareats.data.repository
 
 import android.net.Uri
-import com.hungry.binareats.data.model.User
-import com.hungry.binareats.data.model.toUser
+import com.hungry.binareats.data.network.api.model.user.User
+import com.hungry.binareats.data.network.api.model.user.toUser
 import com.hungry.binareats.data.network.firebase.auth.FirebaseAuthDataSource
 import com.hungry.binareats.utils.ResultWrapper
 import com.hungry.binareats.utils.proceedFlow
