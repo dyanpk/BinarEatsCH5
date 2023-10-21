@@ -19,8 +19,23 @@
     <string name="text_error_name_cannot_empty">Name cannot be empty</string>
     <string name="text_highlight_login_here">Login Here</string>
     <string name="text_highlight_register">Register Here</string>
-    <string name="text_title_your_profile">Edit Profile</string>
     <string name="text_change_profile">Change Profile</string>
     <string name="text_change_password">Change Password</string>
-    <string name="text_logout">LOGOUT</string>
+    <string name="text_logout">Logout</string>
+    <string name="tv_header_name">Hai, Binarian</string>
+    <string name="tv_header_greeting">What do you want to eat today?</string>
+    <string name="tv_discount_30">Discount 30%</string>
+    <string name="tv_discount_desc">Order food through the app and get your discount!</string>
+    <string name="see_what_we_have">See what we have</string>
+    <string name="categories">Categories</string>
+    <string name="notes">notes</string>
+    <string name="total_quantity">x%s</string>
+    <string name="text_title_your_cart">Your Cart</string>
+    <string name="tv_total_price_title">Total Price</string>
+    <string name="tv_total_price">Rp 0</string>
+    <string name="text_cart_is_empty">Cart is Empty</string>
+    <string name="text_title_your_profile">Edit Profile</string>
+    <string name="tv_name_of_menu">menu name</string>
+    <string name="tv_price_of_menu">Rp 0</string>
+    <string name="menu_not_found">Menu not found</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.hungry.binareats.data.model
+package com.hungry.binareats.data.network.api.model.user
 
 import com.google.firebase.auth.FirebaseUser
 

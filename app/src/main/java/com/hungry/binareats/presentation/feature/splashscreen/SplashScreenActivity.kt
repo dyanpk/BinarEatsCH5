@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
-import com.hungry.binareats.MainActivity
+import com.hungry.binareats.presentation.feature.main.MainActivity
 import com.hungry.binareats.data.network.firebase.auth.FirebaseAuthDataSourceImpl
 import com.hungry.binareats.data.repository.UserRepositoryImpl
 import com.hungry.binareats.databinding.ActivitySplashScreenBinding

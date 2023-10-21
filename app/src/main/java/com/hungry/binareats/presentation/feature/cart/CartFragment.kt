@@ -4,39 +4,114 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import com.hungry.binareats.R
+import com.hungry.binareats.data.local.database.AppDatabase
+import com.hungry.binareats.data.local.database.datasource.CartDataSource
+import com.hungry.binareats.data.local.database.datasource.CartDatabaseDataSource
+import com.hungry.binareats.data.network.api.datasource.BinarEatsApiDataSource
+import com.hungry.binareats.data.network.api.service.BinarEatsApiService
+import com.hungry.binareats.data.repository.CartRepository
+import com.hungry.binareats.data.repository.CartRepositoryImpl
 import com.hungry.binareats.databinding.FragmentCartBinding
+import com.hungry.binareats.model.Cart
+import com.hungry.binareats.presentation.common.adapter.CartListAdapter
+import com.hungry.binareats.presentation.common.adapter.CartListener
+import com.hungry.binareats.utils.GenericViewModelFactory
+import com.hungry.binareats.utils.hideKeyboard
+import com.hungry.binareats.utils.proceedWhen
+import com.hungry.binareats.utils.toCurrencyFormat
 
 class CartFragment : Fragment() {
 
-    private var _binding: FragmentCartBinding? = null
+    private lateinit var binding: FragmentCartBinding
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val viewModel: CartViewModel by viewModels {
+        val database = AppDatabase.getInstance(requireContext())
+        val cartDao = database.cartDao()
+        val cartDataSource: CartDataSource = CartDatabaseDataSource(cartDao)
+        val service = BinarEatsApiService.invoke()
+        val apiDataSource = BinarEatsApiDataSource(service)
+        val repo: CartRepository = CartRepositoryImpl(cartDataSource, apiDataSource)
+        GenericViewModelFactory.create(CartViewModel(repo))
+    }
+
+    private val adapter: CartListAdapter by lazy {
+        CartListAdapter(object : CartListener {
+            override fun onPlusTotalItemCartClicked(cart: Cart) {
+                viewModel.increaseCart(cart)
+            }
+
+            override fun onMinusTotalItemCartClicked(cart: Cart) {
+                viewModel.decreaseCart(cart)
+            }
+
+            override fun onRemoveCartClicked(cart: Cart) {
+                viewModel.removeCart(cart)
+            }
+
+            override fun onUserDoneEditingNotes(cart: Cart) {
+                viewModel.setCartNotes(cart)
+                hideKeyboard()
+            }
+        })
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(CartViewModel::class.java)
+        binding = FragmentCartBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        _binding = FragmentCartBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupList()
+        observeData()
+    }
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    private fun setupList() {
+        binding.rvCart.itemAnimator = null
+        binding.rvCart.adapter = adapter
+    }
+
+    private fun observeData() {
+        viewModel.cartList.observe(viewLifecycleOwner) {
+            it.proceedWhen(doOnSuccess = { result ->
+                binding.layoutState.root.isVisible = false
+                binding.layoutState.pbLoading.isVisible = false
+                binding.layoutState.tvError.isVisible = false
+                binding.rvCart.isVisible = true
+                result.payload?.let { (carts, totalPrice) ->
+                    adapter.submitData(carts)
+                    binding.tvTotalPrice.text = totalPrice.toCurrencyFormat()
+                }
+            }, doOnLoading = {
+                binding.layoutState.root.isVisible = true
+                binding.layoutState.pbLoading.isVisible = true
+                binding.layoutState.tvError.isVisible = false
+                binding.rvCart.isVisible = false
+            }, doOnError = { err ->
+                binding.layoutState.root.isVisible = true
+                binding.layoutState.pbLoading.isVisible = false
+                binding.layoutState.tvError.isVisible = true
+                binding.layoutState.tvError.text = err.exception?.message.orEmpty()
+                binding.rvCart.isVisible = false
+            }, doOnEmpty = { data ->
+                binding.layoutState.root.isVisible = true
+                binding.layoutState.pbLoading.isVisible = false
+                binding.layoutState.tvError.isVisible = true
+                binding.layoutState.tvError.text = getString(R.string.text_cart_is_empty)
+                data.payload?.let { (_, totalPrice) ->
+                    binding.tvTotalPrice.text = totalPrice.toCurrencyFormat()
+                }
+                binding.rvCart.isVisible = false
+            })
         }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }
