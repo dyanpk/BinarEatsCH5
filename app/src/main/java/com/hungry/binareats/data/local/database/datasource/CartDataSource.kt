@@ -10,7 +10,7 @@ interface CartDataSource {
     suspend fun insertCart(cart: CartEntity) : Long
     suspend fun deleteCart(cart: CartEntity): Int
     suspend fun updateCart(cart: CartEntity): Int
-    suspend fun deletAll()
+    suspend fun deleteAll()
 }
 
 class CartDatabaseDataSource(private val cartDao: CartDao) : CartDataSource {
@@ -34,7 +34,7 @@ class CartDatabaseDataSource(private val cartDao: CartDao) : CartDataSource {
         return cartDao.updateCart(cart)
     }
 
-    override suspend fun deletAll() {
+    override suspend fun deleteAll() {
         cartDao.deleteAll()
     }
 

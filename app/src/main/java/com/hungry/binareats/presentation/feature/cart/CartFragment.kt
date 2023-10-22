@@ -1,5 +1,6 @@
 package com.hungry.binareats.presentation.feature.cart
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.hungry.binareats.databinding.FragmentCartBinding
 import com.hungry.binareats.model.Cart
 import com.hungry.binareats.presentation.common.adapter.CartListAdapter
 import com.hungry.binareats.presentation.common.adapter.CartListener
+import com.hungry.binareats.presentation.feature.checkout.CheckoutActivity
 import com.hungry.binareats.utils.GenericViewModelFactory
 import com.hungry.binareats.utils.hideKeyboard
 import com.hungry.binareats.utils.proceedWhen
@@ -71,6 +73,7 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupList()
         observeData()
+        setClickListener()
     }
 
     private fun setupList() {
@@ -110,6 +113,12 @@ class CartFragment : Fragment() {
                 }
                 binding.rvCart.isVisible = false
             })
+        }
+    }
+
+    private fun setClickListener() {
+        binding.checkoutButton.setOnClickListener {
+            context?.startActivity(Intent(requireContext(), CheckoutActivity::class.java))
         }
     }
 

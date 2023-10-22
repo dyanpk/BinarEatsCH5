@@ -38,4 +38,15 @@
     <string name="tv_name_of_menu">menu name</string>
     <string name="tv_price_of_menu">Rp 0</string>
     <string name="menu_not_found">Menu not found</string>
+    <string name="total_price">Total Price</string>
+    <string name="checkout">Checkout</string>
+    <string name="list_of_menu">List of Menu</string>
+    <string name="delivery_method">Delivery Method</string>
+    <string name="pick_up">Pick Up</string>
+    <string name="delivery">Delivery</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="e_wallet">E-Wallet</string>
+    <string name="shopping_sumary">Shopping Summary</string>
+    <string name="cash">Cash</string>
+    <string name="text_okay">Okay\n</string>
 </resources>

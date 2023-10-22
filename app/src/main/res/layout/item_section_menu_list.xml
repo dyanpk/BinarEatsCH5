@@ -16,17 +16,16 @@
             android:id="@+id/tv_title_section_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
             android:text="@string/see_what_we_have"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/iv_switch_layout"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/ic_grid"
+            android:id="@+id/iv_layout_mode"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_list"
             android:layout_weight="0"/>
 
     </LinearLayout>

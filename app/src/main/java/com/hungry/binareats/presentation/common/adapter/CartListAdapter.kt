@@ -2,6 +2,7 @@ package com.hungry.binareats.presentation.common.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,8 @@ import coil.load
 import com.hungry.binareats.R
 import com.hungry.binareats.core.ViewHolderBinder
 import com.hungry.binareats.databinding.ItemCartMenuBinding
-import com.hungry.binareats.databinding.ItemCartMenuOrderBinding
+import com.hungry.binareats.databinding.ItemCartMenuCheckoutBinding
+import com.hungry.binareats.databinding.ItemCostBinding
 import com.hungry.binareats.model.Cart
 import com.hungry.binareats.utils.doneEditing
 import com.hungry.binareats.utils.toCurrencyFormat
@@ -23,7 +25,7 @@ class CartListAdapter(private val cartListener: CartListener? = null) :
                 oldItem: Cart,
                 newItem: Cart
             ): Boolean {
-                return oldItem.id == newItem.id && oldItem.id == newItem.id
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
@@ -43,8 +45,8 @@ class CartListAdapter(private val cartListener: CartListener? = null) :
             ItemCartMenuBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             ), cartListener
-        ) else CartOrderViewHolder(
-            ItemCartMenuOrderBinding.inflate(
+        ) else CartCheckoutViewHolder(
+            ItemCartMenuCheckoutBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -99,8 +101,8 @@ class CartViewHolder(
     }
 }
 
-class CartOrderViewHolder(
-    private val binding: ItemCartMenuOrderBinding,
+class CartCheckoutViewHolder(
+    private val binding: ItemCartMenuCheckoutBinding,
 ) : RecyclerView.ViewHolder(binding.root), ViewHolderBinder<Cart> {
     override fun bind(item: Cart) {
         setCartData(item)
@@ -127,6 +129,7 @@ class CartOrderViewHolder(
     }
 
 }
+
 
 
 interface CartListener {

@@ -47,14 +47,14 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://649510b3-1cfe-4b9e-94dd-6ab5b213b511.mock.pstmn.io\""
+                "\"https://8b60ed65-a515-4900-afd7-2e97343b1936.mock.pstmn.io\""
             )
         }
         create("integration") {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://649510b3-1cfe-4b9e-94dd-6ab5b213b511.mock.pstmn.io\""
+                "\"https://8b60ed65-a515-4900-afd7-2e97343b1936.mock.pstmn.io\""
             )
         }
     }
