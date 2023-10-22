@@ -27,7 +27,8 @@
             android:id="@+id/incl_categories"
             layout="@layout/item_section_categories"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"/>
         <include
             android:id="@+id/incl_menus"
             layout="@layout/item_section_menu_list"

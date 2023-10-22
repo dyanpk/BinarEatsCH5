@@ -3,7 +3,9 @@ package com.hungry.binareats.presentation.feature.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.hungry.binareats.data.local.preferences.UserPreferenceDataSource
 import com.hungry.binareats.data.repository.MenuRepository
 import com.hungry.binareats.model.Category
 import com.hungry.binareats.model.Menu
@@ -12,7 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val repo: MenuRepository
+    private val repo: MenuRepository,
+    private val userPref: UserPreferenceDataSource
 ) : ViewModel() {
 
     private val _categories = MutableLiveData<ResultWrapper<List<Category>>>()
@@ -23,8 +26,6 @@ class HomeViewModel(
     val menus : LiveData<ResultWrapper<List<Menu>>>
         get() = _menus
 
-    private val _navigateToDetailMenu = MutableLiveData<ResultWrapper<Menu>>()
-    val navigateToDetailMenu: LiveData<ResultWrapper<Menu>> = _navigateToDetailMenu
 
     fun getCategories(){
         viewModelScope.launch(Dispatchers.IO) {
@@ -39,6 +40,14 @@ class HomeViewModel(
             repo.getMenus(if(category == "all") null else category).collect{
                 _menus.postValue(it)
             }
+        }
+    }
+
+    fun userLayoutModeLiveData() = userPref.getUserLayoutPrefFlow().asLiveData(Dispatchers.IO)
+
+    fun setUserListViewMode(isLinearMode: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userPref.setUserLayoutPref(isLinearMode)
         }
     }
 

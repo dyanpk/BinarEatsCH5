@@ -4,6 +4,8 @@ import com.hungry.binareats.data.local.database.entity.CartEntity
 import com.hungry.binareats.data.local.database.mapper.toCartEntity
 import com.hungry.binareats.data.local.database.mapper.toCartList
 import com.hungry.binareats.data.network.api.datasource.BinarEatsDataSource
+import com.hungry.binareats.data.network.api.model.order.OrderItemRequest
+import com.hungry.binareats.data.network.api.model.order.OrderRequest
 import com.hungry.binareats.model.Cart
 import com.hungry.binareats.model.Menu
 import com.hungry.binareats.utils.ResultWrapper
@@ -22,6 +24,8 @@ interface CartRepository {
     suspend fun increaseCart(item: Cart): Flow<ResultWrapper<Boolean>>
     suspend fun setCartNotes(item: Cart): Flow<ResultWrapper<Boolean>>
     suspend fun deleteCart(item: Cart): Flow<ResultWrapper<Boolean>>
+    suspend fun order(items: List<Cart>): Flow<ResultWrapper<Boolean>>
+    suspend fun deleteAll()
 }
 
 class CartRepositoryImpl(
@@ -57,7 +61,7 @@ class CartRepositoryImpl(
         menu: Menu,
         totalQuantity: Int
     ): Flow<ResultWrapper<Boolean>> {
-        return menu.id?.let { menuId ->
+        return menu.id.let { menuId ->
             proceedFlow {
                 val affectedRow = dataSource.insertCart(
                     CartEntity(
@@ -100,6 +104,21 @@ class CartRepositoryImpl(
     override suspend fun deleteCart(item: Cart): Flow<ResultWrapper<Boolean>> {
         return proceedFlow { dataSource.deleteCart(item.toCartEntity()) > 0 }
     }
+
+    override suspend fun order(items: List<Cart>): Flow<ResultWrapper<Boolean>> {
+        return proceedFlow {
+            val orderItems = items.map {
+                OrderItemRequest(it.itemNotes, it.id, it.itemQuantity)
+            }
+            val orderRequest = OrderRequest(orderItems)
+            binarEatsDataSource.createOrder(orderRequest).status == true
+        }
+    }
+
+    override suspend fun deleteAll() {
+        dataSource.deleteAll()
+    }
+
 
 
 }

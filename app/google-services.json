@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "102715619620",
+    "project_id": "binareats-21e7b",
+    "storage_bucket": "binareats-21e7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102715619620:android:82220f6944a1759df51bb1",
+        "android_client_info": {
+          "package_name": "com.hungry.binareats"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIAUBHLi4BxMR6DODACIGDjDbIeYAc8c4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
