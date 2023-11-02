@@ -13,14 +13,14 @@ class LinearFoodItemViewHolder(
     private val onClickListener: (Menu) -> Unit
 ) : RecyclerView.ViewHolder(binding.root), ViewHolderBinder<Menu> {
 
-    override fun bind(item: Menu){
-        binding.ivItemMenu.load(item.imgUrlMenu){
+    override fun bind(item: Menu) {
+        binding.ivItemMenu.load(item.imgUrlMenu) {
             crossfade(true)
         }
         binding.tvNameOfMenu.text = item.nameOfMenu
         binding.tvPriceOfMenu.text = item.priceOfMenu?.toCurrencyFormat()
 
-        binding.root.setOnClickListener{
+        binding.root.setOnClickListener {
             onClickListener.invoke(item)
         }
     }
@@ -31,14 +31,14 @@ class GridFoodItemViewHolder(
     private val onClickListener: (Menu) -> Unit
 ) : RecyclerView.ViewHolder(binding.root), ViewHolderBinder<Menu> {
 
-    override fun bind(item: Menu){
-        binding.ivItemMenu.load(item.imgUrlMenu){
+    override fun bind(item: Menu) {
+        binding.ivItemMenu.load(item.imgUrlMenu) {
             crossfade(true)
         }
         binding.tvNameOfMenu.text = item.nameOfMenu
         binding.tvPriceOfMenu.text = item.priceOfMenu?.toCurrencyFormat()
 
-        binding.root.setOnClickListener{
+        binding.root.setOnClickListener {
             onClickListener.invoke(item)
         }
     }

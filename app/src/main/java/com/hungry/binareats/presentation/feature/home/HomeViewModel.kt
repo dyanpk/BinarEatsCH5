@@ -19,25 +19,24 @@ class HomeViewModel(
 ) : ViewModel() {
 
     private val _categories = MutableLiveData<ResultWrapper<List<Category>>>()
-    val categories : LiveData<ResultWrapper<List<Category>>>
+    val categories: LiveData<ResultWrapper<List<Category>>>
         get() = _categories
 
     private val _menus = MutableLiveData<ResultWrapper<List<Menu>>>()
-    val menus : LiveData<ResultWrapper<List<Menu>>>
+    val menus: LiveData<ResultWrapper<List<Menu>>>
         get() = _menus
 
-
-    fun getCategories(){
+    fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.getCategories().collect{
+            repo.getCategories().collect {
                 _categories.postValue(it)
             }
         }
     }
 
-    fun getMenus(category: String? = null){
+    fun getMenus(category: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.getMenus(if(category == "all") null else category).collect{
+            repo.getMenus(if (category == "all") null else category).collect {
                 _menus.postValue(it)
             }
         }
@@ -50,5 +49,4 @@ class HomeViewModel(
             userPref.setUserLayoutPref(isLinearMode)
         }
     }
-
 }

@@ -16,43 +16,52 @@ import com.hungry.binareats.presentation.feature.home.viewholder.LinearFoodItemV
 class MenuListAdapter(
     var layoutMode: AdapterLayoutMode,
     private val itemClick: (Menu) -> Unit
-) : RecyclerView.Adapter<ViewHolder>(){
+) : RecyclerView.Adapter<ViewHolder>() {
 
     private val dataDiffer =
-        AsyncListDiffer(this, object : DiffUtil.ItemCallback<Menu>() {
-            override fun areItemsTheSame(
-                oldItem: Menu,
-                newItem: Menu
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
+        AsyncListDiffer(
+            this,
+            object : DiffUtil.ItemCallback<Menu>() {
+                override fun areItemsTheSame(
+                    oldItem: Menu,
+                    newItem: Menu
+                ): Boolean {
+                    return oldItem.id == newItem.id
+                }
 
-            override fun areContentsTheSame(
-                oldItem: Menu,
-                newItem: Menu
-            ): Boolean {
-                return oldItem.hashCode() == newItem.hashCode()
+                override fun areContentsTheSame(
+                    oldItem: Menu,
+                    newItem: Menu
+                ): Boolean {
+                    return oldItem.hashCode() == newItem.hashCode()
+                }
             }
-        })
+        )
 
     fun submitData(data: List<Menu>) {
         dataDiffer.submitList(data)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return when (viewType){
+        return when (viewType) {
             AdapterLayoutMode.GRID.ordinal -> {
                 GridFoodItemViewHolder(
                     binding = ItemGridMenuBinding.inflate(
-                        LayoutInflater.from(parent.context),parent,false
-                    ), itemClick
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    ),
+                    itemClick
                 )
             }
-            else ->{
+            else -> {
                 LinearFoodItemViewHolder(
                     binding = ItemLinearMenuBinding.inflate(
-                        LayoutInflater.from(parent.context),parent,false
-                    ), itemClick
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    ),
+                    itemClick
                 )
             }
         }
@@ -66,8 +75,5 @@ class MenuListAdapter(
         (holder as ViewHolderBinder<Menu>).bind(dataDiffer.currentList[position])
     }
 
-
     override fun getItemCount(): Int = dataDiffer.currentList.size
-
-
 }

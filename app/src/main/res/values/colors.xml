@@ -5,8 +5,6 @@
     <color name="grey">#767676</color>
     <color name="soft_grey">#D3D3D3</color>
     <color name="red">#EA001F</color>
-    <color name="grey_border">#CCC3C3C3</color>
-    <color name="grey_background">#CCEDEDED</color>
     <color name="app_color_primary">#471E94</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="app_color_on_primary">#FFFFFF</color>

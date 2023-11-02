@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class DetailMenuViewModel(
     private val extras: Bundle?,
     private val cartRepository: CartRepository
-) : ViewModel(){
+) : ViewModel() {
 
     val menu = extras?.getParcelable<Menu>(DetailMenuActivity.EXTRA_MENU)
 
@@ -53,6 +53,4 @@ class DetailMenuViewModel(
             }
         }
     }
-
-
 }

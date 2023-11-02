@@ -1,38 +1,25 @@
 package com.hungry.binareats.presentation.feature.register
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
 import com.hungry.binareats.R
-import com.hungry.binareats.data.network.firebase.auth.FirebaseAuthDataSourceImpl
-import com.hungry.binareats.data.repository.UserRepositoryImpl
 import com.hungry.binareats.databinding.ActivityRegisterBinding
-import com.hungry.binareats.presentation.feature.main.MainActivity
 import com.hungry.binareats.presentation.feature.login.LoginActivity
-import com.hungry.binareats.utils.GenericViewModelFactory
+import com.hungry.binareats.presentation.feature.main.MainActivity
 import com.hungry.binareats.utils.highLightWord
 import com.hungry.binareats.utils.proceedWhen
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
     private val binding: ActivityRegisterBinding by lazy {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
-    private val viewModel: RegisterViewModel by viewModels {
-        GenericViewModelFactory.create(createViewModel())
-    }
-
-    private fun createViewModel(): RegisterViewModel {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val dataSource = FirebaseAuthDataSourceImpl(firebaseAuth)
-        val repo = UserRepositoryImpl(dataSource)
-        return RegisterViewModel(repo)
-    }
+    private val viewModel: RegisterViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,9 +39,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun navigateToLogin() {
-        startActivity(Intent(this, LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        })
+        startActivity(
+            Intent(this, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+        )
     }
 
     private fun doRegister() {
@@ -92,11 +81,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun navigateToMain() {
-        startActivity(Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        })
+        startActivity(
+            Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+        )
     }
-
 
     private fun setupForm() {
         with(binding.layoutForm) {
@@ -114,10 +104,9 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.layoutForm.etEmail.text.toString().trim()
 
         return checkNameValidation(fullName) && checkEmailValidation(email) &&
-                checkPasswordValidation(password, binding.layoutForm.tilPassword) &&
-                checkPasswordValidation(confirmPassword, binding.layoutForm.tilConfirmPassword) &&
-                checkPwdAndConfirmPwd(password, confirmPassword)
-
+            checkPasswordValidation(password, binding.layoutForm.tilPassword) &&
+            checkPasswordValidation(confirmPassword, binding.layoutForm.tilConfirmPassword) &&
+            checkPwdAndConfirmPwd(password, confirmPassword)
     }
 
     private fun checkNameValidation(fullName: String): Boolean {

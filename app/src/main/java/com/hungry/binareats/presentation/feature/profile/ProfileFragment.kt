@@ -11,29 +11,19 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.google.firebase.auth.FirebaseAuth
 import com.hungry.binareats.R
-import com.hungry.binareats.data.network.firebase.auth.FirebaseAuthDataSourceImpl
-import com.hungry.binareats.data.repository.UserRepositoryImpl
 import com.hungry.binareats.databinding.FragmentProfileBinding
 import com.hungry.binareats.presentation.feature.login.LoginActivity
-import com.hungry.binareats.utils.GenericViewModelFactory
 import com.hungry.binareats.utils.proceedWhen
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
 
-    private val viewModel: ProfileViewModel by viewModels{
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val dataSource = FirebaseAuthDataSourceImpl(firebaseAuth)
-        val repo = UserRepositoryImpl(dataSource)
-        GenericViewModelFactory.create(ProfileViewModel(repo))
-    }
+    private val viewModel: ProfileViewModel by viewModel()
 
     private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) {
@@ -139,9 +129,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun navigateToLogin() {
-        startActivity(Intent(requireContext(), LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        })
+        startActivity(
+            Intent(requireContext(), LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+        )
     }
 
     private fun observeData() {
@@ -150,9 +142,9 @@ class ProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Change Photo Profile Success!", Toast.LENGTH_SHORT).show()
                 showUserData()
             }, doOnError = {
-                Toast.makeText(requireContext(), "Change Photo Profile Failed!", Toast.LENGTH_SHORT).show()
-                showUserData()
-            })
+                    Toast.makeText(requireContext(), "Change Photo Profile Failed!", Toast.LENGTH_SHORT).show()
+                    showUserData()
+                })
         }
         viewModel.changeProfileResult.observe(viewLifecycleOwner) {
             it.proceedWhen(
@@ -173,6 +165,4 @@ class ProfileFragment : Fragment() {
             )
         }
     }
-
-
 }
