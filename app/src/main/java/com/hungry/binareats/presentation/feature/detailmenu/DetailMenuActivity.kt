@@ -3,24 +3,17 @@ package com.hungry.binareats.presentation.feature.detailmenu
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import coil.load
-import com.hungry.binareats.R
-import com.hungry.binareats.data.local.database.AppDatabase
-import com.hungry.binareats.data.local.database.datasource.CartDataSource
-import com.hungry.binareats.data.local.database.datasource.CartDatabaseDataSource
-import com.hungry.binareats.data.network.api.datasource.BinarEatsApiDataSource
-import com.hungry.binareats.data.network.api.service.BinarEatsApiService
-import com.hungry.binareats.data.repository.CartRepository
-import com.hungry.binareats.data.repository.CartRepositoryImpl
 import com.hungry.binareats.databinding.ActivityDetailMenuBinding
 import com.hungry.binareats.model.Menu
-import com.hungry.binareats.utils.GenericViewModelFactory
 import com.hungry.binareats.utils.proceedWhen
 import com.hungry.binareats.utils.toCurrencyFormat
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailMenuActivity : AppCompatActivity() {
 
@@ -28,16 +21,8 @@ class DetailMenuActivity : AppCompatActivity() {
         ActivityDetailMenuBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: DetailMenuViewModel by viewModels {
-        val database = AppDatabase.getInstance(this)
-        val cartDao = database.cartDao()
-        val cartDataSource: CartDataSource = CartDatabaseDataSource(cartDao)
-        val service = BinarEatsApiService.invoke()
-        val apiDataSource = BinarEatsApiDataSource(service)
-        val repo: CartRepository= CartRepositoryImpl(cartDataSource, apiDataSource)
-        GenericViewModelFactory.create(
-            DetailMenuViewModel(intent?.extras, repo)
-        )
+    private val viewModel: DetailMenuViewModel by viewModel {
+        parametersOf(intent.extras ?: bundleOf())
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +34,7 @@ class DetailMenuActivity : AppCompatActivity() {
 
     private fun bindMenu(menu: Menu?) {
         menu?.let { item ->
-            binding.ivItemMenu.load(item.imgUrlMenu){
+            binding.ivItemMenu.load(item.imgUrlMenu) {
                 crossfade(true)
             }
             binding.tvNameOfMenu.text = item.nameOfMenu
@@ -57,7 +42,6 @@ class DetailMenuActivity : AppCompatActivity() {
             binding.tvPriceOfMenu.text = (item.priceOfMenu ?: 0.0).toCurrencyFormat()
             binding.tvAddressDetail.text = item.locationOfMenu
         }
-
     }
 
     private fun observeData() {
@@ -72,9 +56,11 @@ class DetailMenuActivity : AppCompatActivity() {
                 doOnSuccess = {
                     Toast.makeText(this, "Add to cart success !", Toast.LENGTH_SHORT).show()
                     finish()
-                }, doOnError = {
+                },
+                doOnError = {
                     Toast.makeText(this, it.exception?.message.orEmpty(), Toast.LENGTH_SHORT).show()
-                })
+                }
+            )
         }
     }
 
@@ -91,12 +77,12 @@ class DetailMenuActivity : AppCompatActivity() {
         binding.btnAddToCart.setOnClickListener {
             viewModel.addToCart()
         }
-        binding.clLocation.setOnClickListener{
+        binding.clLocation.setOnClickListener {
             navigateToGoogleMap()
         }
     }
 
-    private fun navigateToGoogleMap(){
+    private fun navigateToGoogleMap() {
         val locationUrl = viewModel.menu?.locationUrl
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(locationUrl))
         startActivity(intent)

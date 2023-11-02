@@ -11,24 +11,27 @@ import com.hungry.binareats.databinding.ItemCostBinding
 import com.hungry.binareats.model.Cart
 import com.hungry.binareats.utils.toCurrencyFormat
 
-class ShoppingSummaryAdapter () : RecyclerView.Adapter<ViewHolder>(){
+class ShoppingSummaryAdapter() : RecyclerView.Adapter<ViewHolder>() {
 
     private val dataDiffer =
-        AsyncListDiffer(this, object : DiffUtil.ItemCallback<Cart>() {
-            override fun areItemsTheSame(
-                oldItem: Cart,
-                newItem: Cart
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
+        AsyncListDiffer(
+            this,
+            object : DiffUtil.ItemCallback<Cart>() {
+                override fun areItemsTheSame(
+                    oldItem: Cart,
+                    newItem: Cart
+                ): Boolean {
+                    return oldItem.id == newItem.id
+                }
 
-            override fun areContentsTheSame(
-                oldItem: Cart,
-                newItem: Cart
-            ): Boolean {
-                return oldItem.hashCode() == newItem.hashCode()
+                override fun areContentsTheSame(
+                    oldItem: Cart,
+                    newItem: Cart
+                ): Boolean {
+                    return oldItem.hashCode() == newItem.hashCode()
+                }
             }
-        })
+        )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ShoppingSummaryViewHolder(
@@ -47,13 +50,11 @@ class ShoppingSummaryAdapter () : RecyclerView.Adapter<ViewHolder>(){
     fun submitData(data: List<Cart>) {
         dataDiffer.submitList(data)
     }
-
-
 }
 
 class ShoppingSummaryViewHolder(
     private val binding: ItemCostBinding
-): RecyclerView.ViewHolder(binding.root), ViewHolderBinder<Cart>{
+) : RecyclerView.ViewHolder(binding.root), ViewHolderBinder<Cart> {
     override fun bind(item: Cart) {
         setShoppingSummary(item)
     }
@@ -62,6 +63,4 @@ class ShoppingSummaryViewHolder(
         binding.tvItemTitle.text = item.nameOfMenu
         binding.tvItemPrice.text = (item.itemQuantity * item.priceOfMenu).toCurrencyFormat()
     }
-
 }
-

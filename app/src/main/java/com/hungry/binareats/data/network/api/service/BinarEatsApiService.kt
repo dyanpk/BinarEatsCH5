@@ -1,5 +1,6 @@
 package com.hungry.binareats.data.network.api.service
 
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.hungry.binareats.BuildConfig
 import com.hungry.binareats.data.network.api.model.category.CategoriesResponse
 import com.hungry.binareats.data.network.api.model.menu.MenusResponse
@@ -14,8 +15,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
-
-interface BinarEatsApiService{
+interface BinarEatsApiService {
     @GET("listmenu")
     suspend fun getMenus(@Query("category") category: String? = null): MenusResponse
 
@@ -25,11 +25,11 @@ interface BinarEatsApiService{
     @POST("order")
     suspend fun createOrder(@Body orderRequest: OrderRequest): OrderResponse
 
-
     companion object {
         @JvmStatic
-        operator fun invoke(): BinarEatsApiService {
+        operator fun invoke(chucker: ChuckerInterceptor): BinarEatsApiService {
             val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(chucker)
                 .connectTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
                 .build()

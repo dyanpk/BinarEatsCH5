@@ -14,9 +14,8 @@ class UserPreferenceDataSourceImpl(
     private val preferenceHelper: PreferenceDataStoreHelper
 ) : UserPreferenceDataSource {
 
-
     companion object {
-        val PREF_USER_LAYOUT =  booleanPreferencesKey("PREF_USER_LAYOUT")
+        val PREF_USER_LAYOUT = booleanPreferencesKey("PREF_USER_LAYOUT")
     }
 
     override suspend fun getUserLayoutPref(): Boolean {
@@ -24,7 +23,7 @@ class UserPreferenceDataSourceImpl(
     }
 
     override fun getUserLayoutPrefFlow(): Flow<Boolean> {
-        return preferenceHelper.getPreference(PREF_USER_LAYOUT,false)
+        return preferenceHelper.getPreference(PREF_USER_LAYOUT, false)
     }
 
     override suspend fun setUserLayoutPref(isLinearMode: Boolean) {

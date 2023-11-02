@@ -14,7 +14,7 @@ interface BinarEatsDataSource {
 
 class BinarEatsApiDataSource(
     private val service: BinarEatsApiService
-) : BinarEatsDataSource{
+) : BinarEatsDataSource {
     override suspend fun getMenus(category: String?): MenusResponse {
         return service.getMenus(category)
     }
@@ -26,5 +26,4 @@ class BinarEatsApiDataSource(
     override suspend fun createOrder(orderRequest: OrderRequest): OrderResponse {
         return service.createOrder(orderRequest)
     }
-
 }

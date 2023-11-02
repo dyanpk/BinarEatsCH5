@@ -8,5 +8,4 @@ class SplashScreenViewModel(
 ) : ViewModel() {
 
     fun isUserLoggedIn() = repo.isLoggedIn()
-
 }

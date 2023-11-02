@@ -1,6 +1,5 @@
 package com.hungry.binareats.data.network.api.model.menu
 
-
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import com.hungry.binareats.model.Menu
@@ -32,8 +31,6 @@ fun MenuItemResponse.toMenu() = Menu(
     descOfMenu = this.descOfMenu.orEmpty(),
     locationUrl = this.locationUrl.orEmpty()
 )
-
-
 
 fun Collection<MenuItemResponse>.toMenuList() = this.map {
     it.toMenu()

@@ -29,7 +29,7 @@ class CheckoutViewModel(
         }
     }
 
-    fun clearCart(){
+    fun clearCart() {
         viewModelScope.launch(Dispatchers.IO) {
             repo.deleteAll()
         }

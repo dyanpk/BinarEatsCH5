@@ -2,7 +2,6 @@ package com.hungry.binareats.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.UUID
 
 @Parcelize
 data class Menu(
@@ -11,6 +10,6 @@ data class Menu(
     val imgUrlMenu: String,
     val priceOfMenu: Double?,
     val descOfMenu: String,
-    val locationOfMenu : String,
-    val locationUrl : String
+    val locationOfMenu: String,
+    val locationUrl: String
 ) : Parcelable

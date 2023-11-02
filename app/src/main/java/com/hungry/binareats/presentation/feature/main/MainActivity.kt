@@ -1,14 +1,9 @@
 package com.hungry.binareats.presentation.feature.main
 
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.gson.Gson
 import com.hungry.binareats.R
 import com.hungry.binareats.databinding.ActivityMainBinding
 

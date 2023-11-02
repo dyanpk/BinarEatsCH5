@@ -114,7 +114,7 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Location"
+            android:text="@string/tv_location"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
@@ -173,7 +173,7 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:gravity="center"
-            android:text="1" />
+            android:text="@string/tv_item_quantity" />
 
         <ImageView
             android:id="@+id/ic_plus"
@@ -189,7 +189,7 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="26dp"
         android:layout_marginBottom="26dp"
-        android:text="Total Price - Rp 20.000"
+        android:text="@string/tv_btn_add_to_cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
