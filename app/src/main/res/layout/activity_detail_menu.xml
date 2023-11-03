@@ -16,7 +16,8 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
     app:layout_constraintHeight_percent="0.4"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="ContentDescription" />
 
 <ImageView
     android:id="@+id/iv_back"
@@ -25,7 +26,8 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
     android:layout_margin="16dp"
     android:src="@drawable/ic_back_arrow"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="ContentDescription" />
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/ll_detail_menu"
@@ -104,7 +106,8 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="26dp"
@@ -169,7 +172,8 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
             android:id="@+id/ic_minus"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:src="@drawable/ic_minus" />
+            android:src="@drawable/ic_minus"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_item_quantity"
@@ -183,7 +187,8 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
             android:id="@+id/ic_plus"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:src="@drawable/ic_plus" />
+            android:src="@drawable/ic_plus"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
