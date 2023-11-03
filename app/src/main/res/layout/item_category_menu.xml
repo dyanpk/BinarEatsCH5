@@ -12,13 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/iv_category_icon"
             android:layout_width="46dp"
             android:layout_height="46dp"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_category_name"

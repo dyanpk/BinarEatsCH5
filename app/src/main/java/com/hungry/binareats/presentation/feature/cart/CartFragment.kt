@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.hungry.binareats.R
@@ -103,7 +104,12 @@ class CartFragment : Fragment() {
 
     private fun setClickListener() {
         binding.checkoutButton.setOnClickListener {
-            context?.startActivity(Intent(requireContext(), CheckoutActivity::class.java))
+            if (viewModel.isCartEmpty()) {
+                val emptyCartMessage = getString(R.string.cart_empty_toast_message)
+                Toast.makeText(requireContext(), emptyCartMessage, Toast.LENGTH_LONG).show()
+            } else {
+                context?.startActivity(Intent(requireContext(), CheckoutActivity::class.java))
+            }
         }
     }
 }

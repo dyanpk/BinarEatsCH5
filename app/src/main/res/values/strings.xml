@@ -33,7 +33,7 @@
     <string name="text_title_your_cart">Your Cart</string>
     <string name="tv_total_price_title">Total Price</string>
     <string name="tv_total_price">Rp 0</string>
-    <string name="text_cart_is_empty">Cart is Empty</string>
+    <string name="text_cart_is_empty">Your cart is looking a bit lonely. \nLet\'s pick your favorites and start ordering!</string>
     <string name="text_title_your_profile">Edit Profile</string>
     <string name="tv_name_of_menu">menu name</string>
     <string name="tv_price_of_menu">Rp 0</string>
@@ -45,11 +45,13 @@
     <string name="delivery">Delivery</string>
     <string name="payment_method">Payment Method</string>
     <string name="e_wallet">E-Wallet</string>
-    <string name="shopping_sumary">Shopping Summary</string>
     <string name="cash">Cash</string>
     <string name="text_okay">Okay\n</string>
     <string name="tv_location">Location</string>
     <string name="tv_item_quantity">1</string>
     <string name="tv_btn_add_to_cart">Total Price - Rp 20.000</string>
     <string name="tv_checkoutButton">Checkout</string>
+    <string name="text_title_checkout">Checkout</string>
+    <string name="order_sumary">Order Summary</string>
+    <string name="cart_empty_toast_message">Cart is empty.</string>
 </resources>
