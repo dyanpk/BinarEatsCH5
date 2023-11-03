@@ -18,10 +18,10 @@ class DetailMenuViewModel(
     val menu = extras?.getParcelable<Menu>(DetailMenuActivity.EXTRA_MENU)
 
     val priceLiveData = MutableLiveData<Double>().apply {
-        postValue(0.0)
+        postValue(menu?.priceOfMenu ?: 0.0)
     }
     val menuCountLiveData = MutableLiveData<Int>().apply {
-        postValue(0)
+        postValue(1)
     }
     private val _addToCartResult = MutableLiveData<ResultWrapper<Boolean>>()
 
@@ -29,14 +29,14 @@ class DetailMenuViewModel(
         get() = _addToCartResult
 
     fun add() {
-        val count = (menuCountLiveData.value ?: 0) + 1
+        val count = (menuCountLiveData.value ?: 1) + 1
         menuCountLiveData.postValue(count)
         priceLiveData.postValue(menu?.priceOfMenu?.times(count) ?: 0.0)
     }
 
     fun minus() {
-        if ((menuCountLiveData.value ?: 0) > 0) {
-            val count = (menuCountLiveData.value ?: 0) - 1
+        if ((menuCountLiveData.value ?: 1) > 1) {
+            val count = (menuCountLiveData.value ?: 1) - 1
             menuCountLiveData.postValue(count)
             priceLiveData.postValue(menu?.priceOfMenu?.times(count) ?: 0.0)
         }
@@ -44,8 +44,7 @@ class DetailMenuViewModel(
 
     fun addToCart() {
         viewModelScope.launch {
-            val menuQuantity =
-                if ((menuCountLiveData.value ?: 0) <= 0) 1 else menuCountLiveData.value ?: 0
+            val menuQuantity = (menuCountLiveData.value ?: 1)
             menu?.let {
                 cartRepository.createCart(it, menuQuantity).collect { result ->
                     _addToCartResult.postValue(result)

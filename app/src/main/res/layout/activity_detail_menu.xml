@@ -13,7 +13,7 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
     android:scaleType="centerCrop"
     tools:src="@tools:sample/avatars"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.3"
+    app:layout_constraintHeight_percent="0.4"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
@@ -51,12 +51,14 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/H1"
             android:text="@string/tv_name_of_menu" />
 
         <TextView
             android:id="@+id/tv_price_of_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/Subhead2"
             android:text="@string/tv_price_of_menu" />
     </LinearLayout>
 
@@ -64,9 +66,10 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
         android:id="@+id/tv_desc_menu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginVertical="26dp"
         android:alpha="0.7"
         tools:text="@tools:sample/lorem"
+        style="@style/Subhead3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +117,7 @@ tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            style="@style/H6"
             android:text="@string/tv_location"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
