@@ -13,7 +13,6 @@ import com.hungry.binareats.utils.proceed
 import com.hungry.binareats.utils.proceedFlow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
@@ -75,8 +74,6 @@ class CartRepositoryImpl(
                 )
                 affectedRow > 0
             }
-        } ?: flow {
-            emit(ResultWrapper.Error(IllegalStateException("Product ID not found")))
         }
     }
 
